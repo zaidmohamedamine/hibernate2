@@ -1,39 +1,62 @@
 package be.technobel.formation.iris.hibernate.repository;
 
 import be.technobel.formation.iris.hibernate.model.entity.User;
+import org.hibernate.Session;
 
 import javax.persistence.*;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Optional;
 
-public class UserRepository {
-    private final EntityManager em;
+@Repository
+public class UserRepository extends AbstractRepository<Long, User> {
 
     public UserRepository(EntityManagerFactory factory) {
-        this.em = factory.createEntityManager();
-        this.em.setFlushMode(FlushModeType.COMMIT);
+        super(factory);
     }
 
+    @Override
     public List<User> findAll() {
-        Query query = this.em.createQuery("SELECT u FROM User u", User.class);
+        TypedQuery<User> query = this.em.createQuery("SELECT u FROM User u", User.class);
 
         return query.getResultList();
     }
 
-    public User insert(User toInsert) {
-        this.em.getTransaction().begin();
-        this.em.persist(toInsert);
-        this.em.flush();
-        this.em.getTransaction().commit();
-        return toInsert;
+    @Override
+    public User findOneById(Long id) {
+        TypedQuery<User> query = this.em.createQuery("SELECT u FROM User u WHERE u.id = :id", User.class);
+        query.setParameter("id", id);
+
+        return query.getSingleResult();
     }
 
-    public void update(Long id, User updatedUser) {
-        this.em.getTransaction().begin();
+    public User findOneByEmail(String email) {
+        TypedQuery<User> query = this.em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+        query.setParameter("email", email);
 
-        User user = this.em.find(User.class, id);
+        return query.getSingleResult();
+    }
 
-        user.setFirstName(updatedUser.getFirstName());
+    @Override
+    public void insert(User obj) {
+        try {
+            User search = this.findOneByEmail(obj.getEmail());
+            this.update(search.getId(), obj);
+        } catch (Exception e) {
+            this.save(obj);
+        }
+    }
 
-        this.em.flush();
+    @Override
+    public void update(Long id, User obj) throws IllegalAccessException {
+        User toUpdate = this.findOneById(id);
+        if (toUpdate != null) {
+            this.merge(toUpdate, obj);
+        }
+    }
+
+    @Override
+    public void remove(Long id) {
+
     }
 }

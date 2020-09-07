@@ -11,6 +11,12 @@ public class Borrowing {
     @Column(name = "borrowing_endAt")
     private LocalDate endAt;
 
+    public Borrowing(BorrowingId id) {
+        this.id = id;
+    }
+    public Borrowing() {
+
+    }
     public Borrowing(User user, Book book) {
         this.id = new BorrowingId(user, book);
     }

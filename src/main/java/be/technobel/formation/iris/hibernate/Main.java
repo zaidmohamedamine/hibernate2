@@ -1,45 +1,39 @@
 package be.technobel.formation.iris.hibernate;
 
-import be.technobel.formation.iris.hibernate.model.entity.Type;
 import be.technobel.formation.iris.hibernate.model.entity.User;
+import be.technobel.formation.iris.hibernate.repository.AbstractRepository;
 import be.technobel.formation.iris.hibernate.repository.UserRepository;
-import org.checkerframework.checker.units.qual.A;
+import be.technobel.formation.iris.hibernate.service.ServiceLocator;
 
-import javax.persistence.*;
-import javax.transaction.Transaction;
-import java.time.LocalDate;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import java.util.Map;
 
 public class Main {
 
-    public static void main(String[] args) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("be.technobel.formation.iris.hibernate");
-//        EntityManager em = emf.createEntityManager();
-//        em.setFlushMode(FlushModeType.AUTO);
+    public static void main(String[] args) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException, ClassNotFoundException {
+        ServiceLocator serviceLocator = ServiceLocator.getInstance();
+        serviceLocator.initRepositories();
 
-        UserRepository ur = new UserRepository(emf);
+        UserRepository ur = serviceLocator.getRepository(UserRepository.class);
+
         User user = new User();
-        user.setFirstName("Flavian")
-                .setLastName("Ovyn")
-                .setEmail("flavian3.ovyn@bstorm.be")
-                .setPassword("Blop")
-                .setType(Type.DICTIONNAIRE);
-//        ur.insert(user);
+        user.setFirstName("Blop");
+        user.setLastName("Biblop");
+        user.setEmail("blop@blop.com");
+
+        ur.insert(user);
+        User user1 = ur.findOneByEmail(user.getEmail());
 
         List<User> users = ur.findAll();
+        users.forEach(System.out::println);
 
-        for(User u: users) {
-            if (u.getType() != null) {
-                System.out.println(u.getType().action());
-            }
-            System.out.println(u);
-        }
-        System.out.println(Type.BLOP.action());
-        System.out.println(Type.CATALOGUE.action());
-        System.out.println(Type.DICTIONNAIRE.action());
-//Permet la création d'une autre référence mémoire
-//        String str = "Blop";
-//        String str2 = new String("Blop");
+        User user2 = new User();
+        user2.setEmail("blop@blop.com");
+        user2.setFirstName("ppppp")
+                .setLastName("mmmmm");
+        ur.update(user1.getId(), user2);
+
+        List<User> users2 = ur.findAll();
+        users2.forEach(System.out::println);
     }
 }
