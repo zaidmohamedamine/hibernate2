@@ -1,7 +1,8 @@
 package be.technobel.formation.iris.hibernate;
 
-import be.technobel.formation.iris.hibernate.model.Album;
-import be.technobel.formation.iris.hibernate.model.Author;
+import be.technobel.formation.iris.hibernate.model.entity.Type;
+import be.technobel.formation.iris.hibernate.model.entity.User;
+import be.technobel.formation.iris.hibernate.repository.UserRepository;
 import org.checkerframework.checker.units.qual.A;
 
 import javax.persistence.*;
@@ -14,23 +15,31 @@ public class Main {
 
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("be.technobel.formation.iris.hibernate");
-        EntityManager em = emf.createEntityManager();
-        em.setFlushMode(FlushModeType.AUTO);
+//        EntityManager em = emf.createEntityManager();
+//        em.setFlushMode(FlushModeType.AUTO);
 
-        Album album = em.find(Album.class, 1L);
+        UserRepository ur = new UserRepository(emf);
+        User user = new User();
+        user.setFirstName("Flavian")
+                .setLastName("Ovyn")
+                .setEmail("flavian3.ovyn@bstorm.be")
+                .setPassword("Blop")
+                .setType(Type.DICTIONNAIRE);
+//        ur.insert(user);
 
-        System.out.println(album);
+        List<User> users = ur.findAll();
 
-        Query query = em.createQuery("SELECT a FROM Album a JOIN a.author author WHERE author.nom = :authorName");
-
-        query.setParameter("authorName", "Flavian");
-
-        List<Album> albums = query.getResultList();
-
-        albums.forEach(System.out::println);
-
-        List<Album> albumsList = em.createNamedQuery("Album.FindAll").setParameter("isActive", true).getResultList();
-
-        albumsList.forEach(System.out::println);
+        for(User u: users) {
+            if (u.getType() != null) {
+                System.out.println(u.getType().action());
+            }
+            System.out.println(u);
+        }
+        System.out.println(Type.BLOP.action());
+        System.out.println(Type.CATALOGUE.action());
+        System.out.println(Type.DICTIONNAIRE.action());
+//Permet la création d'une autre référence mémoire
+//        String str = "Blop";
+//        String str2 = new String("Blop");
     }
 }
