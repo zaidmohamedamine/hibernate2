@@ -1,0 +1,13 @@
+be\technobel\formation\iris\hibernate\repository\Repository.class
+be\technobel\formation\iris\hibernate\model\entity\Borrowing.class
+be\technobel\formation\iris\hibernate\repository\AbstractRepository.class
+be\technobel\formation\iris\hibernate\model\entity\Author.class
+be\technobel\formation\iris\hibernate\model\entity\Borrowing$BorrowingId.class
+be\technobel\formation\iris\hibernate\model\entity\Address.class
+be\technobel\formation\iris\hibernate\model\entity\Provider.class
+be\technobel\formation\iris\hibernate\repository\UserRepository.class
+be\technobel\formation\iris\hibernate\model\entity\Book.class
+be\technobel\formation\iris\hibernate\model\entity\Type.class
+be\technobel\formation\iris\hibernate\service\ServiceLocator.class
+be\technobel\formation\iris\hibernate\Main.class
+be\technobel\formation\iris\hibernate\model\entity\User.class

@@ -1,12 +1,17 @@
 package be.technobel.formation.iris.hibernate;
 
-import be.technobel.formation.iris.hibernate.model.entity.User;
-import be.technobel.formation.iris.hibernate.repository.AbstractRepository;
-import be.technobel.formation.iris.hibernate.repository.UserRepository;
-import be.technobel.formation.iris.hibernate.service.ServiceLocator;
 
+import be.technobel.formation.iris.hibernate.model.Arme;
+import be.technobel.formation.iris.hibernate.model.Category;
+import be.technobel.formation.iris.hibernate.model.Edition;
+import be.technobel.formation.iris.hibernate.model.Role;
+import be.technobel.formation.iris.hibernate.model.entity.Character;
+import be.technobel.formation.iris.hibernate.model.entity.Manga;
+import be.technobel.formation.iris.hibernate.repository.CharacterRepository;
+import be.technobel.formation.iris.hibernate.repository.MangaRepository;
+import be.technobel.formation.iris.hibernate.service.ServiceLocator;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
+import java.time.LocalDate;
 
 public class Main {
 
@@ -14,26 +19,21 @@ public class Main {
         ServiceLocator serviceLocator = ServiceLocator.getInstance();
         serviceLocator.initRepositories();
 
-        UserRepository ur = serviceLocator.getRepository(UserRepository.class);
+//        MangaRepository mangaRepo = serviceLocator.getRepository(MangaRepository.class);
+//        mangaRepo.insert(new Manga("One piece","Takashi" ,  LocalDate.of(2005,6,13),Category.HEROIC, new Edition("toei","japon")));
+//
+//        mangaRepo.findAll().forEach(System.out::println);
+//
+//        mangaRepo.findAllByCategory(Category.HEROIC).forEach(System.out::println);
+//
+//
+//        mangaRepo.update(4L,new Manga("Death Note" , "masashi" ,LocalDate.now(),Category.SEINEN,new Edition("iji","japon")));
 
-        User user = new User();
-        user.setFirstName("Blop");
-        user.setLastName("Biblop");
-        user.setEmail("blop@blop.com");
+//        mangaRepo.findAllByEditionName("toei").forEach(System.out::println);
 
-        ur.insert(user);
-        User user1 = ur.findOneByEmail(user.getEmail());
+        CharacterRepository characterRepo = serviceLocator.getRepository(CharacterRepository.class);
 
-        List<User> users = ur.findAll();
-        users.forEach(System.out::println);
+        characterRepo.insert(new Character("luffy", new Arme("mains","peau",false), Role.PRINCIPAL));
 
-        User user2 = new User();
-        user2.setEmail("blop@blop.com");
-        user2.setFirstName("ppppp")
-                .setLastName("mmmmm");
-        ur.update(user1.getId(), user2);
-
-        List<User> users2 = ur.findAll();
-        users2.forEach(System.out::println);
     }
 }

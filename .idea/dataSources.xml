@@ -11,5 +11,12 @@ D:/Documents/workspace/java/Technobel_Iris_JPA_Hibernate/src/main/resources/hibe
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="BxlFormation@localhost" uuid="34311ad1-a1f2-4b8f-ae54-344d782f8a52">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/BxlFormation</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

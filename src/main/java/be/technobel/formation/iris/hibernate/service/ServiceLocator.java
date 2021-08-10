@@ -3,7 +3,6 @@ package be.technobel.formation.iris.hibernate.service;
 import be.technobel.formation.iris.hibernate.repository.AbstractRepository;
 import be.technobel.formation.iris.hibernate.repository.Repository;
 import org.reflections.Reflections;
-
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.lang.reflect.InvocationTargetException;

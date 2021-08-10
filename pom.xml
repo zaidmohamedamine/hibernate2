@@ -12,17 +12,17 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>LATEST</version>
+            <version>5.5.5.Final</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
-            <version>LATEST</version>
+            <version>5.5.5.Final</version>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>LATEST</version>
+            <version>42.2.23.jre7</version>
         </dependency>
         <dependency>
             <groupId>de.svenkubiak</groupId>
@@ -37,7 +37,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
+            <version>1.18.20</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
