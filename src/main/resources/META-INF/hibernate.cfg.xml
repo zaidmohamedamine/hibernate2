@@ -5,7 +5,7 @@
 <hibernate-configuration>
     <session-factory>
 
-        <property name="connection.url">jdbc:postgres://localhost:5432/BxlFormation</property>
+        <property name="connection.url">jdbc:postgres://localhost:5432/postgres</property>
         <property name="connection.username">postgres</property>
         <property name="connection.password">louis14</property>
         <property name="connection.driver_class">org.postgresql.Driver</property>
